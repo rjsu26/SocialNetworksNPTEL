@@ -14,7 +14,7 @@ def create_Graph():
     G.add_nodes_from(range(1,101))
     return G
 
-def visualize(G):# visualise G with label dictionary and node size as given 
+def visualize(G,t):# visualise G and save a gml file at each t time
     time.sleep(2)
     # nx.draw(G, with_labels=1 , node_size=nodesize)
     labeldict = get_labels(G)
@@ -30,7 +30,8 @@ def visualize(G):# visualise G with label dictionary and node size as given
     plt.savefig(BASE_DIR+ '/evolution.jpg')  #To show a stimulation of the changes in the graph formed at each call of visualise, on a jpg file named 'evolution' saved on the present directory
     plt.clf()
     plt.cla()
-
+    nx.write_gml(G,'evolution_'+str(t) + '.gml')
+    
 def assign_bmi(G): # assign a randmo bmi to each node ranging from 15 to 40 and set each node type as 'person'  
     for each in G.nodes():
         G.node[each]['name']=random.randint(15,40)
@@ -156,9 +157,9 @@ assign_bmi(G)
 add_foci_nodes(G)
 add_foci_edges()
 time.sleep(4)
-visualize(G)
+visualize(G,t=0)
 for t in range(0,10):
     homophily(G)
     closure(G)
     change_bmi(G)
-    visualize(G)
+    visualize(G,t+1)
