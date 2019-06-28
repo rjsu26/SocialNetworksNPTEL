@@ -124,5 +124,5 @@ dmypy.json
 .pyre/
 
 .vscode
-# *.gml
+*.gml
 # *.jpg
